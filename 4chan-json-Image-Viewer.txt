@@ -1,0 +1,113 @@
+// ==UserScript==
+// @name         4chan json Image Viewer
+// @namespace    http://tampermonkey.net/
+// @version      1.0.0
+// @description  All images in a thread in a simple image only view, Change "Sub" and Thread "Number".
+// @author       Czy [2020]
+// @match        https://a.4cdn.org/wg/thread/*.json
+// @grant        none
+// ==/UserScript==
+
+//START// Thread Location INFORMATION -------------------------------------------------------------------------------------------|
+/*
+  //LABEL     //           URL ADDRESS + Sub +  /thread/  + Number  + .JSON
+  //BRAKEDOWN // "https://a.4cdn.org/" + wg  + "/thread/" + 7662864 + ".json"
+  //FULL      // https://a.4cdn.org/wg/thread/7662864.json
+
+// DEMO INFO LAYOUT
+{
+	"posts":[
+		{
+		Simgle Occurance (first Post)
+			"sub": "", 		// Thread Name
+			"images": 273,	// Thread Total Images
+		EACH Occurance
+			"no": 7662864, 	// Post Number (Low -> High) // READ Loop ADD Repeat.
+			"ext": ".jpg",	// File Extention	|	S_ext:[ ".jpg", ".png" ]
+			"w": 5120,		// Full-Image Width
+			"h": 2880,		// Full-Image Height
+			"tn_w": 250,	// Mini-Image Width
+			"tn_h": 140,	// Mini-Image Height
+			"tim": 1601744276955,	// Image File Code
+									// Full-Image URL: "https://i.4cdn.org/wg/"+ tim +".jpg"
+									// Mini-Image URL: "https://i.4cdn.org/wg/"+ tim +"s.jpg"
+		}
+	]
+}
+*/
+//END// Thread Location INFORMATION -------------------------------------------------------------------------------------------|
+
+(function() {
+    'use strict';
+
+
+    var el ;//= document.getElementById("gsr");
+
+var dirhref = window.location.pathname.replace("/wg/thread/", "").replace(".json", ""); // /wg/thread/7662864.json RETURNS Thread Number
+
+// convert page json to string
+var JObj = document.getElementsByTagName("pre")[0].innerHTML;
+console.log( JObj );
+    var obj = JSON.parse( JObj );
+console.log( obj.posts[0].tim +" /demo/ "+ obj.posts[0].ext );
+
+var LocIMG = "https://i.4cdn.org/wg/";
+
+
+function dem(){
+    var cox = "";
+    for(var i = 0; i < obj.posts[0].images; i++){
+        if( obj.posts[i].tim === undefined ){
+
+        }else{
+                var content = `
+                    <a href="`+ LocIMG + obj.posts[i].tim + obj.posts[i].ext +`" target="_blank">
+                        <img src="`+ LocIMG + obj.posts[i].tim +`s.jpg" height="`+ obj.posts[i].tn_h +`" width="`+ obj.posts[i].tn_w +`"/>
+                    </a>
+                `;
+            cox += "<li>"+ content +"</li>";
+        }
+    };
+
+    return cox;
+};
+
+
+el =`
+<!--- CSS --->
+<style>
+
+    /* hide <pre> object */
+    pre{
+        display: none;
+    }
+
+    ul{
+        list-style-type: none;
+        margin:5px;
+        padding-left:0px;
+    }
+    ul li {
+        list-style-type: none;
+        padding-left:0px;
+        border:solid 1px black;
+        display:inline-block;
+    }
+
+</style>
+
+
+<!--- --->
+    <div style="background:#eeeeee; position: absolute; top:25px; margin-left:auto; margin-right:auto; left:0; right:0; text-align:center;">
+
+            <ul>`+ dem() +`</ul>
+
+	</div>
+
+	<div style="position:fixed; bottom:0px; right:0px;">
+        <h1>`+dirhref+`</h1>
+    </div>`;
+
+//ADDS el to PAGE
+document.body.innerHTML += el;
+})();
