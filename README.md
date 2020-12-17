@@ -2,7 +2,8 @@
 View all images in a thread on 4chan in a simple image only view</br>
 for Use with https://www.tampermonkey.net/ web browser extension</br></br>
 
-Choose the Thread post you want to view the images on and simply copy the thread number (000000) in the url address bar and paste in in the following url</br>
+Choose the Thread post you want to view the images on and simply copy the thread number (000000) in the url address bar,</br>
+and paste in in the new URL with your selected Thread number</br>
 Original url: "https://boards.4chan.org/wg/thread/000000/POSTNAME" </br>
 Break down of new URL:"https://a.4cdn.org/" + forum  + "/thread/" + Thread number + ".json" </br>
 example of new URL: https://a.4cdn.org/wg/thread/000000.json </br></br>
