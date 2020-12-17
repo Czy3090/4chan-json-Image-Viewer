@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         4chan json Image Viewer
 // @namespace    http://tampermonkey.net/
-// @version      1.0.3
+// @version      1.1.0
 // @description  All images in a thread in a simple image only view, Change Thread "Number".
 // @author       Czy [2020]
 // @match        https://a.4cdn.org/wg/thread/*.json
@@ -56,12 +56,14 @@ console.log( obj.posts[0].tim +" /demo/ "+ obj.posts[0].ext );
 
 var LocIMG = "https://i.4cdn.org/wg/";
 
+// just data
+var ITL = obj.posts[0].images; // thread total images
+var val = document.images.length; // total page images
 
 function dem(){
     var cox = "";
-    for(var i = 0; i < obj.posts[0].images; i++){
+    for(var i = 0; i < obj.posts.length; i++){
         if( obj.posts[i].tim === undefined ){
-
         }else{
                 var content = `
                     <a href="`+ LocIMG + obj.posts[i].tim + obj.posts[i].ext +`" target="_blank">
