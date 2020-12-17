@@ -1,6 +1,10 @@
 # 4chan-json-Image-Viewer 
 View all images in a thread on 4chan in a simple image only view</br>
 for Use with https://www.tampermonkey.net/ web browser extension</br></br>
+
+!! Not a replacement for visiting 4chan threads !!</br>
+just a productive way to sort thought the images you want, without the text and scrolling you dont want.</br></br>
+
  
 Start Here:
 1. install TamperMonkey to Chrome ( allows you to add more functionality to chrome ) </br>
@@ -9,15 +13,6 @@ Chrome Add-on: [https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkke
 TamperMonkey install: [https://greasyfork.org/en/scripts/418726-4chan-json-image-viewer] </br></br>
 3. Add 4chan json Image Viewer - Thread Float Link ( adds floating button to lower left in /wg/ threads ) </br>
 TamperMonkey install: [https://greasyfork.org/en/scripts/418729-4chan-json-image-viewer-thread-float-link]</br></br>
-
-!! Not a replacement for visiting 4chan threads !!</br>
-just a productive way to sort thought the images you want, without the text and scrolling you dont want.</br></br>
-
-Choose the Thread post you want to view the images on and simply copy the thread number (000000) in the url address bar,</br>
-and paste in in the new URL with your selected Thread number</br>
-Original url: "https://boards.4chan.org/wg/thread/000000/POSTNAME" </br>
-Break down of new URL:"https://a.4cdn.org/" + forum  + "/thread/" + Thread number + ".json" </br>
-example of new URL: https://a.4cdn.org/wg/thread/000000.json </br></br>
 
 with this add-on you will only see the images on the thread you selected, clicking a image will open the image in a new page.</br>
 no more scrolling just to view the threads images.</br>
