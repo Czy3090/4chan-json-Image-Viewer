@@ -1,20 +1,19 @@
 // ==UserScript==
 // @name         4chan json Image Viewer
 // @namespace    http://tampermonkey.net/
-// @version      1.1.0
-// @description  All images in a thread in a simple image only view, Change Thread "Number".
+// @version      1.1.2
+// @description  All images in a thread in a simple image only view.
 // @author       Czy [2020]
-// @match        https://a.4cdn.org/wg/thread/*.json
+// @match        https://a.4cdn.org/*/thread/*.json
 // @grant        none
 // ==/UserScript==
 
-// FOR USE ON /wg/ threads Only.
-// -- keep up to date, may add ability to view other threads in the future.
+// -- keep up to date, may add New Functions in the future.
 
 //START// Thread Location INFORMATION -------------------------------------------------------------------------------------------|
 /*
   //LABEL     //           URL ADDRESS + Sub +  /thread/  + Number  + .JSON
-  //BRAKEDOWN // "https://a.4cdn.org/" + wg  + "/thread/" + 7662864 + ".json"
+  //BREAKDOWN // "https://a.4cdn.org/" + wg  + "/thread/" + 7662864 + ".json"
   //FULL      // https://a.4cdn.org/wg/thread/7662864.json
 
 // DEMO INFO LAYOUT
@@ -45,16 +44,21 @@
 
 
     var el ;
+function dirco(a){ return window.location.pathname.split("/")[a]};
 // displays Thread number (Lower right corner)
-var dirhref = window.location.pathname.replace("/wg/thread/", "").replace(".json", ""); // /wg/thread/7662864.json RETURNS Thread Number
+var dirhref = dirco(3).replace(".json", ""); // thread number
+var dirthread = dirco(1); // thread name
 
-// convert page json to string
+
+    // convert page json to string
 var JObj = document.getElementsByTagName("pre")[0].innerHTML;
 console.log( JObj );
     var obj = JSON.parse( JObj );
 console.log( obj.posts[0].tim +" /demo/ "+ obj.posts[0].ext );
 
-var LocIMG = "https://i.4cdn.org/wg/";
+var dirname = obj.posts[0].semantic_url;
+
+var LocIMG = "https://i.4cdn.org/"+dirthread+"/";
 
 // just data
 var ITL = obj.posts[0].images; // thread total images
@@ -67,7 +71,7 @@ function dem(){
         }else{
                 var content = `
                     <a href="`+ LocIMG + obj.posts[i].tim + obj.posts[i].ext +`" target="_blank">
-                        <img src="`+ LocIMG + obj.posts[i].tim +`s.jpg" height="`+ obj.posts[i].tn_h +`" width="`+ obj.posts[i].tn_w +`"/>
+                        <img src="`+ LocIMG + obj.posts[i].tim +`s.jpg" height="`+ obj.posts[i].tn_h +`" width="`+ obj.posts[i].tn_w +`" />
                     </a>
                 `;
             cox += "<li>"+ content +"</li>";
@@ -109,8 +113,10 @@ el =`
 
 	</div>
 
-	<div style="position:fixed; bottom:0px; right:0px;">
-        <h1>`+dirhref+`</h1>
+	<div style="background:#eeeeee; position:fixed; bottom:0px; right:0px;">
+         <a href="https://boards.4chan.org/`+dirthread+`/thread/`+dirhref+`/`+dirname+`" target="_blank" onclick="window.close();">
+            <h1>`+dirhref+`</h1>
+        </a>
     </div>`;
 
 //ADDS el to PAGE
