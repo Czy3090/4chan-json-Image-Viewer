@@ -1,12 +1,15 @@
 // ==UserScript==
 // @name         4chan json Image Viewer
 // @namespace    http://tampermonkey.net/
-// @version      1.0.0
-// @description  All images in a thread in a simple image only view, Change "Sub" and Thread "Number".
+// @version      1.0.3
+// @description  All images in a thread in a simple image only view, Change Thread "Number".
 // @author       Czy [2020]
 // @match        https://a.4cdn.org/wg/thread/*.json
 // @grant        none
 // ==/UserScript==
+
+// FOR USE ON /wg/ threads Only.
+// -- keep up to date, may add ability to view other threads in the future.
 
 //START// Thread Location INFORMATION -------------------------------------------------------------------------------------------|
 /*
@@ -41,8 +44,8 @@
     'use strict';
 
 
-    var el ;//= document.getElementById("gsr");
-
+    var el ;
+// displays Thread number (Lower right corner)
 var dirhref = window.location.pathname.replace("/wg/thread/", "").replace(".json", ""); // /wg/thread/7662864.json RETURNS Thread Number
 
 // convert page json to string
